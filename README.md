@@ -126,7 +126,6 @@ This project showcases the effectiveness of AI models like OpenAI Mini 4.0 and M
 
 - [OpenAI API Documentation](https://beta.openai.com/docs/)
 - [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
-- [Streamlit Documentation](https://docs.streamlit.io/)
 
 ---
 
