@@ -1,3 +1,42 @@
+# AI Tinkerers October Hackathon Show & Tell 🧠
+- A hackathon competition repository to develop LLM-as-Judge solution to automate the output scoring return by any Large Language Model.
+
+# 💫 Getting Started
+## Setting Up
+1. Fork this repository.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. PR for changes approval.
+
+## Benchmarking
+1. Refer to notebook - `03_benchmark_malaysian_mistral_llmasajudge_v2.ipynb` in `/notebooks-benchmarking-exercises`
+2.  Login Weight & Bias to setup Weave logger. Get the API key to setup the project.
+3. Change the `call_llm` function according to the model apply (OpenAI, Huggingface, Gemini, etc.)
+4. Run the notebook for benchmarking.
+
+# 📂 File Structure
+```
+.
+├── datasets
+├── miscellaneous
+├── notebooks-benchmarking-exercises
+├── notebooks-data-preparation
+├── notebooks-finetuning-models
+├── .gitignore
+└── requirements.txt
+```
+## Detail 
+- `datasets/ ` : Dataset use for finetune and benchmarking.
+- `notebooks-benchmarking-exercises/` : Notebook for benchmarking.
+- `notebooks-data-preparation/` : Notebok for finetune data preparation.
+- `notebooks-finetuning-models/` : Notebook for model finetuning.
+
+# 📈 Progress
+- [x] Finetuning Mistral Model
+- [ ] Benchmarking with OpenAI
+- [ ] Becnhmarking with Gemini Flash
+- [ ] Prompt engineering model improvement
+- [ ] Deployment  
+
 # **🤖 AI Tinkerers Hackathon - Supa Team WeRecooked 🤖**
 
 <!-- Badge to Visit Project -->
@@ -27,22 +66,6 @@ The **AI Tinkerers Hackathon Project - Supa Team WeRecooked** is an initiative a
 8. [🔮 Future Enhancements](#-future-enhancements)
 9. [📚 References](#-references)
 10. [📜 License](#-license)
-
----
-
-## **🎯 Objectives**
-
-- **📊 Develop benchmark models**: Create and evaluate LLMs like OpenAI Mini 4.0 and Mistral for specific use cases.
-- **📁 Dataset preparation**: Preprocess datasets for benchmarking AI models, including language translations and task-specific data.
-- **💻 Finetune models**: Explore and fine-tune models to improve accuracy on human preference datasets.
-- **🚀 Showcase results**: Deploy results using Streamlit to create an interactive platform.
-
----
-
-## **🔧 Technologies Used**
-
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)
 
 ---
 
@@ -134,4 +157,3 @@ This project showcases the effectiveness of AI models like OpenAI Mini 4.0 and M
 **Supa Team WeRecooked License**
 
 All rights reserved. Unauthorized use or reproduction of any part of this project is prohibited. For usage and license inquiries, contact the project maintainers.
-
