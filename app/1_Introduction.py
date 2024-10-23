@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from app.component import page_style
+from component import page_style
 
 page_style()
 

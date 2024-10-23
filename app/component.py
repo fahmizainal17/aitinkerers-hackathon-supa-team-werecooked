@@ -13,7 +13,7 @@ def get_base64_of_bin_file(bin_file):
 def page_style():
     # Encode the local GIF to base64
 
-    sidebar_background_base64 = get_base64_of_bin_file('assets/Judge_Background.jpg')
+    sidebar_background_base64 = get_base64_of_bin_file('app/assets/Judge_Background.png')
 
     # Apply custom styles, including the sidebar background GIF
     custom_style = f"""
@@ -67,7 +67,7 @@ def page_style():
     """
 
     # Set the page configuration
-    icon = Image.open('photos/werecooked_round_profile.png')
+    icon = Image.open('app/photos/werecooked_round_profile.png')
     st.set_page_config(page_title="Fahmi Zainal", page_icon=icon, layout="wide")
 
     # Apply custom styles to the page
@@ -80,7 +80,7 @@ def page_style():
     # Sidebar content
     with st.sidebar:
         # Display the round profile picture at the top of the sidebar
-        st.image("photos/werecooked_round_profile.png", width=150)
+        st.image("app/photos/werecooked_round_profile.png", width=150)
 
         st.markdown("""
             ## Created By: Fahmi Zainal
