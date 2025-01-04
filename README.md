@@ -1,159 +1,68 @@
-# AI Tinkerers October Hackathon Show & Tell 🧠
-- A hackathon competition repository to develop LLM-as-Judge solution to automate the output scoring return by any Large Language Model.
+# AI Tinkerers Kuala Lumpur October 2024 Hackathon (LLM-as-a-Judge): Fine-Tuning Malaysian DeBERTaV2 & Mistral 7B for Logical Consistency Classification and Reasoning
 
-# 💫 Getting Started
-## Setting Up
-1. Fork this repository.
-2. Install dependencies with `pip install -r requirements.txt`.
-3. PR for changes approval.
+### Overview
+This repo details code written as part of the **1st place solution** for the [AI Tinkerer's Hackathon in Kuala Lumpur](https://www.linkedin.com/posts/supa-ai_llms-techinnovation-llm-activity-7256832143694192640-INSI?utm_source=share&utm_medium=member_desktop)
+for an LLM-as-a-Judge use case.
 
-## Benchmarking
-1. Refer to notebook - `03_benchmark_malaysian_mistral_llmasajudge_v2.ipynb` in `/notebooks-benchmarking-exercises`
-2.  Login Weight & Bias to setup Weave logger. Get the API key to setup the project.
-3. Change the `call_llm` function according to the model apply (OpenAI, Huggingface, Gemini, etc.)
-4. Run the notebook for benchmarking.
+It involves fine-tuning **Malaysian DeBERTaV2** and **Mistral 7B** models for yes/no classification and reasoning tasks, focusing on a Natural language inference (NLI) task.
 
-# 📂 File Structure
-```
-.
-├── datasets
-├── miscellaneous
-├── notebooks-benchmarking-exercises
-├── notebooks-data-preparation
-├── notebooks-finetuning-models
-├── .gitignore
-└── requirements.txt
-```
-## Detail 
-- `datasets/ ` : Dataset use for finetune and benchmarking.
-- `notebooks-benchmarking-exercises/` : Notebook for benchmarking.
-- `notebooks-data-preparation/` : Notebok for finetune data preparation.
-- `notebooks-finetuning-models/` : Notebook for model finetuning.
+In our case, NLI is the task of determining whether a "hypothesis" is true (*entailment*) or false (*contradiction*) given a `statement`-`question`/`paragraph`-`statement` pair. By leveraging translated datasets and Chain-of-Thought reasoning techniques, this project demonstrates the potential for finetuned smaller models to act as scalable judges, in line with the [JudgeLM paper](https://arxiv.org/abs/2310.17631).
 
-# 📈 Progress
-- [x] Finetuning Mistral Model
-- [ ] Benchmarking with OpenAI
-- [ ] Becnhmarking with Gemini Flash
-- [ ] Prompt engineering model improvement
-- [ ] Deployment  
+Crucially, **we leverage open source models and datasets in the Malay language** to enable adaptation to the local Malaysian context.
 
-# **🤖 AI Tinkerers Hackathon - Supa Team WeRecooked 🤖**
+### Methodology
+A comprehensive presentation we prepared for the Hackathon can be found [here](/miscellaneous/werecooked_LLM_JUDGE_v20241024.pdf).
 
-<!-- Badge to Visit Project -->
-<div align="center"> 
-    <a href="https://your-streamlit-app-url.com">
-        <img src="https://img.shields.io/badge/Visit%20AI%20Tinkerers%20Hackathon%20Project-brightgreen?style=for-the-badge&logo=streamlit" alt="Visit AI Tinkerers Hackathon Project"/>
-    </a>
-</div>
+1. [Dataset Translation](/notebooks-data-preparation/): Translated English datasets into Malay to enable focused fine-tuning for Malay language understanding using **OpenAI's 4o-mini**.
+2. [Chain-of-Thought Reasoning](/notebooks-data-preparation/): Augmented datasets with CoT reasoning using **OpenAI's 4o-mini** to enhance logical reasoning capabilities.
+3. [Fine-Tuning](/notebooks-finetuning-models/): Utilized **Google Colab's A100 GPU** (40 GB VRAM) to fine-tune models on the curated datasets using **QLoRA** and **Huggingface's SFTTrainer**.
+4. [Benchmarking](/notebooks-benchmarking-exercises/): Benchmarking and training runs was done/monitored using **weave** (**Weights & Biases**) 
 
----
+### Models
+Original models:
+- https://huggingface.co/mesolitica/malaysian-mistral-7b-32k-instructions-v4
+- https://huggingface.co/mesolitica/malaysian-debertav2-base
 
-## **📋 Overview**
+Fine-tuned models:
+- NLI only: https://huggingface.co/wanadzhar913/malaysian-debertav2-finetune-on-boolq
+- NLI only: https://huggingface.co/wanadzhar913/malaysian-mistral-llmasajudge-v2
+- NLI & Reasoning: https://huggingface.co/wanadzhar913/malaysian-mistral-llmasajudge-v3
 
-The **AI Tinkerers Hackathon Project - Supa Team WeRecooked** is an initiative aimed at building and benchmarking AI models, particularly focusing on developing Large Language Model (LLM) Judges. The project covers dataset preparation, benchmarking, finetuning models, and creating a user-friendly interface to showcase our results using Streamlit.
+### Datasets
+Original datasets:
+- https://huggingface.co/datasets/google/boolq
+- https://huggingface.co/datasets/r-three/fib
 
----
+Translated datasets:
+- https://huggingface.co/datasets/wanadzhar913/fib-malay
+- https://huggingface.co/datasets/wanadzhar913/boolq-malay
 
-## **Table of Contents**
+Translated & Reasoning column generated datasets:
+- https://huggingface.co/datasets/wanadzhar913/fib-malay-with-chain-of-thought
+- https://huggingface.co/datasets/wanadzhar913/boolq-malay-with-chain-of-thought
 
-1. [🎯 Objectives](#-objectives)
-2. [🔧 Technologies Used](#-technologies-used)
-3. [🗂️ Directory Structure](#-directory-structure)
-4. [📁 Key Components](#-key-components)
-5. [📊 Visual Elements and Data](#-visual-elements-and-data)
-6. [🔄 Project Workflow](#-project-workflow)
-7. [🎉 Conclusion](#-conclusion)
-8. [🔮 Future Enhancements](#-future-enhancements)
-9. [📚 References](#-references)
-10. [📜 License](#-license)
+### Results
+Our approach yielded significant improvements in logical reasoning tasks for Malay and English language , validated by metrics including accuracy, F1-score. These results secured **1st place** at the **AI Tinkerer's Hackathon in Kuala Lumpur**.*
 
----
+| **Model**            | **Accuracy (%)** | **F1-Score (%)** |
+|----------------------|------------------|------------------|
+| OpenAI 4o-mini       | 78               | 80               |
+| Malaysian DeBERTaV2  | 51               | 48               |
+| Malaysian Mistral V2 | 65               | 74               |
+| Malaysian Mistral V2 | 61               | 69               |
 
-## **🗂️ Directory Structure**
+**Due to time/compute constraints, we didn't evaluate on the entire test set. You can check how we sampled the testing set [here](/notebooks-benchmarking-exercises/generate_validation_dataset_for_presentation.ipynb).*
 
-The project structure is as follows:
+### Acknowledgments
+Special thanks to:
+- [Mesoltica](https://github.com/mesolitica) for their open-source models we used for fine-tuning.
+- [AI Tinkerer's Kuala Lumpur](https://kuala-lumpur.aitinkerers.org/) for organizing the hackathon.
+- [Joseph](https://www.linkedin.com/in/joseph-jlyc-chin/) from [DocuAsk](https://www.linkedin.com/company/docuask/) for providing OpenAI credits enabling us to access **4o-mini**.
+- Team members and collaborators for their contributions.
 
-```plaintext
-.
-├── README.md
-├── datasets
-│   ├── boolq-english-train.jsonl
-│   ├── fib-malay-openai.jsonl
-│   └── for_presentation/
-├── miscellaneous
-│   └── AIT_Problemstatement2_SUPA.pdf
-├── notebooks-benchmarking-exercises
-│   ├── 03_benchmark_openaimini4_0_llmasajudge_v1_v2.ipynb
-│   └── 03_benchmark_malaysian_mistral_llmasajudge_v2.ipynb
-├── notebooks-data-preparation
-│   ├── 01_dataset_prep_boolq_openai.ipynb
-│   └── archive_01_dataset_prep_fib_t5.ipynb
-├── notebooks-finetuning-models
-│   ├── 02_finetune_v1_malaysian_debertav2_base.ipynb
-│   └── 02_finetune_v2_malaysian_mistral_7b_32k_instructions_v4.ipynb
-└── requirements.txt
-```
-
----
-
-## **📁 Key Components**
-
-- **🔍 Data Preparation**: Includes notebooks and scripts for preparing datasets such as BoolQ and FIB for different models (e.g., OpenAI and T5).
-- **📊 Benchmarking**: Focuses on evaluating the performance of various AI models such as OpenAI Mini 4.0 and Mistral LLM as Judges.
-- **🔧 Model Finetuning**: Contains code to finetune models like Malaysian DeBERTaV2 and Mistral LLM.
-
----
-
-## **📊 Visual Elements and Data**
-
-- **📁 Datasets**: Processed and raw datasets are available for English and Malay human preferences.
-- **📉 Benchmarking Notebooks**: Jupyter notebooks that contain the evaluation of models using different datasets.
-- **🖥️ Interactive Interface**: Results will be visualized and shared using Streamlit.
-
----
-
-## **🔄 Project Workflow**
-
-1. **📂 Environment Setup**:
-   - Set up a virtual environment and install required dependencies using `requirements.txt`.
-
-2. **🔨 Data Processing**:
-   - Prepare datasets for specific tasks, including translation and task-specific formatting.
-
-3. **🚀 Model Finetuning**:
-   - Fine-tune models on preprocessed datasets and evaluate performance.
-
-4. **📊 Benchmarking**:
-   - Benchmark models using evaluation notebooks to assess effectiveness in judging tasks.
-
-5. **🌐 Deployment**:
-   - Deploy results to an interactive Streamlit app for presentation.
-
----
-
-## **🎉 Conclusion**
-
-This project showcases the effectiveness of AI models like OpenAI Mini 4.0 and Mistral in the task of LLM Judges, providing a platform for performance evaluation and model comparison. By fine-tuning models on human-preference datasets, we aim to develop more accurate AI models.
-
----
-
-## **🔮 Future Enhancements**
-
-- **📈 Advanced Benchmarking**: Expand model benchmarking to include more datasets and AI models.
-- **🤖 Further Finetuning**: Apply more advanced techniques for finetuning models to improve performance.
-- **🌐 Enhanced UI**: Improve the Streamlit UI for better interaction and visualization.
-
----
-
-## **📚 References**
-
-- [OpenAI API Documentation](https://beta.openai.com/docs/)
-- [Hugging Face Transformers](https://huggingface.co/docs/transformers/index)
-
----
-
-## **📜 License**
-
-**Supa Team WeRecooked License**
-
-All rights reserved. Unauthorized use or reproduction of any part of this project is prohibited. For usage and license inquiries, contact the project maintainers.
+### Improvements
+- **Due to time/compute constraints, we didn't evaluate on the entire test set**. A more accurate result can be obtained by evaluating on the entire dataset(s).
+- Set `bf16` parameter to `True` to optimize compute efficiency without significantly sacrificing model accuracy.
+- Increase the `gradient_accumulation_steps` to deal with the small GPU constraints or increase the `batch_size` if we've access to a larger GPU. The reasoning is mainly to avoid [Out of Memory Errors (OOM)](https://discuss.huggingface.co/t/batch-size-vs-gradient-accumulation/5260).
+- Given more compute resources, we can also increase our `patience` variable and train for more than 10 epochs.
+- **Limiting the reasoning portion (in the training dataset) to only be in Malay**. Since the model has been instruction finetuned to mainly reply in Malay, it'd be confusing to have it reason back in English.
