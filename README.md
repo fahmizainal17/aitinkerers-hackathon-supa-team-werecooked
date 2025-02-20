@@ -57,8 +57,9 @@ Our approach yielded significant improvements in logical reasoning tasks for Mal
 
 For deployment, we opted for hosting the project on an EC2 Instance. We've utilized the following resources for doing this:
 - Calculating GPU memory requirements: https://unfoldai.com/gpu-memory-requirements-for-llms/
-- Docker deployments (1): https://medium.com/@amri369/self-host-llama-3-1-8-b-in-ec2-using-vllm-and-docker-1aefe4584b9a
-- Docker deployments (2): https://medium.com/@chinmayd49/self-host-llm-with-ec2-vllm-langchain-fastapi-llm-cache-and-huggingface-model-7a2efa2dcdab
+- Docker deployments on EC2 (1): https://medium.com/@amri369/self-host-llama-3-1-8-b-in-ec2-using-vllm-and-docker-1aefe4584b9a
+- Docker deployments on EC2 (2): https://medium.com/@chinmayd49/self-host-llm-with-ec2-vllm-langchain-fastapi-llm-cache-and-huggingface-model-7a2efa2dcdab
+- Streamlit on EC2 details: https://medium.com/@otrinh/deploying-streamlit-app-to-ec2-instance-7a7edeffbb54
 
 Here's a rough sketch of our architecture:
 
