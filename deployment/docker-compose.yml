@@ -1,0 +1,14 @@
+version: "3"
+services:
+  llm_service:
+    build: ./deployment/llm_service
+    ports:
+      - "5001:5001"
+
+  frontend:
+    build: ./deployment/streamlit_frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - llm_service
+
